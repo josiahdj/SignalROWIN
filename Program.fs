@@ -1,7 +1,29 @@
-﻿// Learn more about F# at http://fsharp.org
-// See the 'F# Tutorial' project for more help.
+﻿open Customer
 
 [<EntryPoint>]
-let main argv = 
-    printfn "%A" argv
-    0 // return an integer exit code
+let main _ = 
+    let signalr = SignalR.Server "http://localhost:7777"
+    let staticServer = Static.Server "http://localhost:8777"
+
+    let rec loop message =
+        async {
+            signalr.Send message
+            do! Async.Sleep 1000
+            return! loop message
+        }
+
+    {
+        Name = "Someone I. Know"
+        Phone = "555-123-4567"
+        Email = "someone@somewhere.org"
+        Address = 
+            {
+                Street = "123 Main Street"
+                Suburb = "Midland"
+                City = "Hometown"
+                ZipCode = "12345"
+                Planet = "Earth"
+            }
+    }
+    |> loop
+    |> Async.RunSynchronously
