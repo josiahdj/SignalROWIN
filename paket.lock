@@ -42,5 +42,5 @@ NUGET
       Microsoft.Owin (>= 3.0.1)
       Microsoft.Owin.FileSystems (>= 3.0.1)
       Owin (>= 1.0)
-    Newtonsoft.Json (7.0.1)
+    Newtonsoft.Json (8.0.2)
     Owin (1.0)
